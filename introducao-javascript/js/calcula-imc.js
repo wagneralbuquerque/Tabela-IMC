@@ -1,9 +1,18 @@
 var pacientes = document.querySelectorAll(".paciente");
-console.log(pacientes);
+
+
 // Alterando dados conteúdo de uma classe
 var titulo = document.querySelector(".titulo");
 titulo.textContent = "Cálculo IMC";
-var adicionar;
+
+
+
+
+function calculaImc(peso, altura) {
+var imcValor = 0;
+imcValor = peso / (altura * altura);
+return imcValor.toFixed(2);
+}
 
 //Percorre todos os pacientes
 for (var i = 0; i < pacientes.length; i++) {
@@ -13,8 +22,11 @@ for (var i = 0; i < pacientes.length; i++) {
   var peso = tdPeso.textContent;
   var tdAltura = paciente.querySelector(".info-altura");
   var altura = tdAltura.textContent;
+  var  tdImc = paciente.querySelector(".info-imc");
+  tdImc.textContent = calculaImc(peso, altura);  
   var pesoValid = true;
   var alturaValid = true;
+
 
   if (peso > 600 || peso <= 0) {
     console.log("Peso Inválido");
@@ -22,23 +34,16 @@ for (var i = 0; i < pacientes.length; i++) {
     paciente.querySelector(".info-peso").classList.add("campo-invalido"); //sinaliza com cores campos com informações inválidas
   }
   if (altura > 3.0 || altura <= 0) {
-    console.log("Altura Inválida"); 
+    console.log("Altura Inválida");
     pesoValid = false;
     paciente.querySelector(".info-altura").classList.add("campo-invalido"); //sinaliza com cores campos com informações inválidas
   }
 
   if (pesoValid & alturaValid) {
-    var imc = calculaImc(peso, altura);
-    console.log(imc);
-
+    var imc = calculaImc(peso, altura); 
+    
     //inserindo imc na tabela
-    var tdImc = paciente.querySelector(".info-imc");
-    tdImc.textContent = imc.toFixed(2); // to fixed para limitar a quantidade de casas decimais
+    
+     // to fixed para limitar a quantidade de números após a vírgula
   }
-}
-
-function calculaImc() {
-  var imc = 0;
-  imc = peso / (altura * altura);
-  return imc.toFixed(2);
-}
+} 
