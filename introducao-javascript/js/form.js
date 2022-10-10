@@ -7,13 +7,30 @@ botaoAdicionar.addEventListener("click", function (event) {
 
   var paciente = dadosDoForm(form);
   console.log(paciente);
+  
 
   var pacienteTr = montaTr(paciente);
 
+  var erros = validaPaciente(paciente);
+
+
+  console.log(erros);
+  
+  if (erros.length > 0) {
+    exibeMensamgensDeErro(erros);
+    return;
+  }
+
+  if (erros.length == 0){
   var tabela = document.querySelector("#tabela-pacientes");
   tabela.appendChild(pacienteTr);
 
+  form.reset();
+  var mensagensDeErro =  document.querySelector("#mensagem-erro");
+  mensagensDeErro.innerHTML = " ";
+  }
   console.log(imc);
+  erros.length = 0;
 });
 
 function dadosDoForm(form) {
@@ -28,9 +45,8 @@ function dadosDoForm(form) {
   return paciente;
 }
 
-
-
 function montaTr(paciente) {
+ 
   var pacienteTr = document.createElement("tr");
   pacienteTr.classList.add("paciente");
 
@@ -41,6 +57,7 @@ function montaTr(paciente) {
   pacienteTr.appendChild(montaTd(paciente.imc, "info-imc"));
 
   return pacienteTr;
+
 }
 
 function montaTd(dado, classe) {
@@ -49,4 +66,28 @@ function montaTd(dado, classe) {
   td.classList.add(classe);
 
   return td;
+}
+
+function validaPaciente(paciente) {
+  
+  var erros = [];
+  console.log(erros);
+  if (paciente.gordura.length == 0) erros.push("% de gordura Inválida");
+  if (paciente.nome.length == 0) erros.push("Insira um Nome");
+  if (!validaPeso(paciente.peso)) erros.push("Peso Inválido");
+  if(!validaAltura(paciente.altura)) erros.push("Altura Inválida");
+  
+  return erros;
+}
+
+
+function exibeMensamgensDeErro (erros){
+  var ul = document.querySelector("#mensagem-erro");
+  ul.innerHTML = "";
+  erros.forEach(function (erro){
+      var li = document.createElement("li");
+      li.textContent = erro;
+      ul.appendChild(li);
+  });
+    
 }

@@ -131,3 +131,21 @@ button:disabled {
 .campo-invalido {
   background-color: lightcoral;
 }
+
+#mensagem-erro{
+  color: red;
+}
+
+.fadeout{
+  
+  opacity: 0;
+  transition: 1s;
+}
+
+#filtrar-tabela{
+  width: 100%;
+}
+
+.hide{
+  display: none;
+}
