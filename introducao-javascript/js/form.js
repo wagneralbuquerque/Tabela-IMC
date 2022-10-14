@@ -91,3 +91,12 @@ function exibeMensamgensDeErro (erros){
   });
     
 }
+
+
+function adicionaPaciente(paciente){
+
+  var pacienteTr = montaTr(paciente);
+  var tabela = document.querySelector("#tabela-pacientes");
+  tabela.appendChild(pacienteTr);
+  
+}
